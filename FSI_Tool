@@ -9,7 +9,7 @@ AutoUpdate(FILE, mode)
 
 SetWorkingDir %A_ScriptDir%
 
-;Chaina wrote this4
+;Chaina wrote this5
 
 FileDelete, %A_WorkingDir%\License Number.txt
 FileDelete, %A_WorkingDir%\ActiveLicense.license
@@ -18,7 +18,7 @@ FileRead, License, %A_WorkingDir%\License Number.txt
 TestTextFile1 := ("https://raw.githubusercontent.com/fredator10/Licenses/refs/heads/main/FSI_Licenses")
 URLDownloadToFile,%TestTextFile1%,ActiveLicense.license
 FileRead, ActiveLicense, %A_WorkingDir%\ActiveLicense.license
-FileDelete, FSI.exe.v.backup
+FileDelete, FSI.ahk.v.backup
 
 ;FUCKING REGISTRY
 
