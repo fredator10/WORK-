@@ -8,9 +8,6 @@ AutoUpdate(FILE, mode)
 
 ;chaina1
 
-;You can compile and set icons by using Ahk2Exe.exe
-
-;If AutoHotkey.exe wants to change its name to abc.exe, Please modify Ahk=%A_ScriptDir%\abc.exe
 
  #NoEnv
  #NoTrayIcon
