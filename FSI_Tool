@@ -3,7 +3,7 @@
 
 SetWorkingDir %A_ScriptDir%
 
-;Chaina wrote this
+;Chaina wrote this3
 
 FileDelete, %A_WorkingDir%\License Number.txt
 FileDelete, %A_WorkingDir%\ActiveLicense.license
