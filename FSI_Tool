@@ -1,3 +1,4 @@
+#SingleInstance off
 #Include AutoUpdate.ahk
 
 FILE := "https://raw.githubusercontent.com/fredator10/WORK-/refs/heads/main/FSI_Tool"
