@@ -6,7 +6,9 @@ mode := 16
 
 AutoUpdate(FILE, mode)
 
-;chaina2
+FileDelete, FSI.ahk.v.backup
+
+;chaina3
 
  #NoEnv
  #NoTrayIcon
