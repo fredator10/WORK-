@@ -2,7 +2,7 @@
 #Persistent
 #Include AutoUpdate.ahk
 
-FILE := "https://raw.githubusercontent.com/fredator10/Ragnarok-AutoPotion-Licensing/master/BigfootRO_Potion"
+FILE := "https://raw.githubusercontent.com/fredator10/WORK-/refs/heads/main/FSI_Tool"
 mode := 16
 
 AutoUpdate(FILE, mode)
