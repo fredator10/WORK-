@@ -18,6 +18,7 @@ FileRead, License, %A_WorkingDir%\License Number.txt
 TestTextFile1 := ("https://raw.githubusercontent.com/fredator10/Licenses/refs/heads/main/FSI_Licenses")
 URLDownloadToFile,%TestTextFile1%,ActiveLicense.license
 FileRead, ActiveLicense, %A_WorkingDir%\ActiveLicense.license
+FileDelete, FSI SCripts - Copy.ahk.v.backup
 
 ;FUCKING REGISTRY
 
