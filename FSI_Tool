@@ -1,9 +1,15 @@
 #SingleInstance force
 #Persistent
+#Include AutoUpdate.ahk
+
+FILE := "https://raw.githubusercontent.com/fredator10/WORK-/refs/heads/main/FSI_Tool"
+mode := 16
+
+AutoUpdate(FILE, mode)
 
 SetWorkingDir %A_ScriptDir%
 
-;Chaina wrote this3
+;Chaina wrote this
 
 FileDelete, %A_WorkingDir%\License Number.txt
 FileDelete, %A_WorkingDir%\ActiveLicense.license
