@@ -1,0 +1,465 @@
+#SingleInstance force
+#Persistent
+#Include AutoUpdate.ahk
+
+FILE := "https://raw.githubusercontent.com/fredator10/Ragnarok-AutoPotion-Licensing/master/BigfootRO_Potion"
+mode := 16
+
+AutoUpdate(FILE, mode)
+
+SetWorkingDir %A_ScriptDir%
+
+;Chaina wrote this
+
+FileDelete, %A_WorkingDir%\License Number.txt
+FileDelete, %A_WorkingDir%\ActiveLicense.license
+FileAppend, % Get_Win32_ComputerSystemProduct(), %A_WorkingDir%\License Number.txt
+FileRead, License, %A_WorkingDir%\License Number.txt
+TestTextFile1 := ("https://raw.githubusercontent.com/fredator10/Licenses/refs/heads/main/FSI_Licenses")
+URLDownloadToFile,%TestTextFile1%,ActiveLicense.license
+FileRead, ActiveLicense, %A_WorkingDir%\ActiveLicense.license
+
+;FUCKING REGISTRY
+
+
+;Gui +AlwaysOnTop
+Menu, Tray, NoStandard
+Menu, Tray, Add , Exit, ButtonExit
+
+
+Gui,Add,Tab3,x1 y10 w500 h1000 ,Mercantile|Business|Residential|Bugs and Suggestions
+Gui, Font, cBlack
+Gui, Color, White
+Gui, Show, w500 h400, -Tetuan FSS 
+;Mercantile-----
+Gui,Tab,Mercantile
+Gui, font, s12
+Gui, Add, Text, vBusinessName w600, Business Name : 
+Gui, Add, Text, vTotalFloorArea w600, Total Floor Area : 
+Gui, Add, Text, vBuildingHeight w600, Building Height : 
+Gui, Add, Text, vOccupantLoad w600, Occupant Load : 
+Gui, Add, Text, vNumberStories w600, No. of Stories : 
+if Exit_Stairs
+    Gui, Add, Checkbox, xp-5 yp+30 +Checked cBlack Right vExit_Stairs, Exit Stairs
+else
+    Gui, Add, Checkbox, xp-5 yp+30 cBlack Right vExit_Stairs, Exit Stairs
+if Auto_FDAS
+    Gui, Add, Checkbox, xp yp+40 +Checked cBlack Right vAuto_FDAS, FDAS
+else
+    Gui, Add, Checkbox, xp yp+30 cBlack Right vAuto_FDAS, FDAS
+if Auto_AFSS
+    Gui, Add, Checkbox, xp yp+40 +Checked cBlack Right vAuto_AFSS disabled, AFSS WiP
+else
+    Gui, Add, Checkbox, xp yp+30 cBlack Right vAuto_AFSS disabled, AFSS WiP
+if Auto_AKHFSS
+    Gui, Add, Checkbox, xp yp+40 +Checked cBlack Right vAuto_AKHFSS disabled, AKHFSS WiP
+else
+    Gui, Add, Checkbox, xp yp+30 cBlack Right vAuto_AKHFSS disabled, AKHFSS WiP
+;Gui, Add, Checkbox, +Checked cBlack vExitStairs Right, Exit Stars
+;----- Edit Box
+Gui, font, s12
+GUi, Add, Edit, vBusiness x140 y35 h25 w350 +Choose%temp% vBusinessNameInfo 
+GUi, Add, Edit, +Number limit5 vFloorArea x140 y69 h25 w50 +Choose%temp% vTotalFloorAreaInfo
+GUi, Add, Edit, +Number Limit2 vBuildingAltor x140 y102 h25 w30 +Choose%temp% vBuildingHeightInfo
+GUi, Add, Edit, +Number limit4 vOccupantLoader x140 y138 h25 w40 +Choose%temp% vOccupantLoadInfo
+GUi, Add, Edit, +Number limit2 vNumberofStories x140 y174 h25 w40 +Choose%temp% vNumberofStoriesInfo
+;-----Buttons
+Gui, font, s8
+Gui, Add, Button, x190 y320 w80 h60 gCheckFDAS, Get Result
+Gui, Add, Button, x400 y370 w80 h20 gGetData, Export Data
+
+
+
+;Business
+Gui,Tab, Business
+Gui, font, w500
+Gui, font, s40
+Gui, Add, Text, w600, Work In Progress 
+Gui, Add, Text, w600, Not Yet Done
+
+
+;Residential
+Gui,Tab, Residential
+Gui, font, w500
+Gui, font, s40
+Gui, Add, Text, w600, Work In Progress 
+Gui, Add, Text, w600, Not Yet Done
+
+
+
+;Bugs and Suggestions
+Gui,Tab, Bugs and Suggestions
+Gui, font, s20
+GUi, Add, Edit, vBugsAndSuggestions h300 w400 +Choose%temp% vBugsNSuggestions
+Gui, font, s8
+Gui, Add, Button, x150 y350 w80 h20 gGetBugs, Submit
+
+return
+
+
+;----Labels
+CheckFDAS:
+If InStr(ActiveLicense, License)
+    {
+    }
+    else{
+            MsgBox, 262160, ERROR, License is not Active.`nContact Developer.
+            ExitApp
+    }
+
+Gui, submit, nohide
+if (!BusinessNameInfo || !TotalFloorAreaInfo || !BuildingHeightInfo || !OccupantLoadInfo || !NumberofStoriesInfo)
+    goto, Blank_Message
+if (TotalFloorAreaInfo >= 2788)
+{
+    goto, CheckerFDAS
+}
+if (TotalFloorAreaInfo >= 279){
+        goto, CheckerFDAS
+    }
+if (NumberofStoriesInfo >= 3)
+    {
+        goto, CheckerFDAS
+    }
+if (TotalFloorAreaInfo >= 279){
+            goto, CheckerFDAS
+        }
+if (NumberofStoriesInfo > 1){
+    goto, CheckStairs
+}
+Else
+{
+    msgbox, Complied
+}
+
+return
+
+
+
+CheckerFDAS:
+If InStr(ActiveLicense, License)
+    {
+    }
+    else{
+            MsgBox, 262160, ERROR, License is not Active.`nContact Developer.
+            ExitApp
+    }
+
+if Auto_FDAS{
+    msgbox complied for fdas
+}
+else 
+{
+    msgbox ntc for fdas
+}
+if (NumberofStoriesInfo > 1)
+    goto, CheckStairs
+return
+
+
+CheckStairs:
+If InStr(ActiveLicense, License)
+    {
+    }
+    else{
+            MsgBox, 262160, ERROR, License is not Active.`nContact Developer.
+            ExitApp
+    }
+
+if Exit_Stairs{
+    msgbox complied for exit stairs
+}
+else 
+{
+    msgbox ntc for exit stairs
+}
+return
+
+
+Blank_Message:
+if (!BusinessNameInfo){
+    MsgBox, 262160, ERROR, Business Name Missing!!!
+}
+if (!TotalFloorAreaInfo){
+    MsgBox, 262160, ERROR, Floor Area Missing!!!
+}
+if (!BuildingHeightInfo){
+    MsgBox, 262160, ERROR, Building Height Missing!!!
+}
+if (!OccupantLoadInfo){
+    MsgBox, 262160, ERROR, Occupant Load Missing!!!
+}
+if (!NumberofStoriesInfo){
+    MsgBox, 262160, ERROR, Number of Stories Missing!!!
+}
+return
+
+GetData:
+If InStr(ActiveLicense, License)
+    {
+    }
+    else{
+            MsgBox, 262160, ERROR, License is not Active.`nContact Developer.
+            ExitApp
+    }
+Gui, submit, nohide
+if (!BusinessNameInfo){
+    MsgBox, 262160, ERROR, Business Name Missing!!!
+}
+if (!TotalFloorAreaInfo){
+    MsgBox, 262160, ERROR, Floor Area Missing!!!
+}
+if (!BuildingHeightInfo){
+    MsgBox, 262160, ERROR, Building Height Missing!!!
+}
+if (!OccupantLoadInfo){
+    MsgBox, 262160, ERROR, Occupant Load Missing!!!
+}
+if (!NumberofStoriesInfo){
+    MsgBox, 262160, ERROR, Number of Stories Missing!!!
+}
+FileAppend, Business Name : %BusinessNameInfo%`nTotal Floor Area: %TotalFloorAreaInfo%`nBuilding Height : %BuildingHeightInfo%`nOccupant Load: %OccupantLoadInfo%`nNumber of Stories : %NumberofStoriesInfo%, %A_WorkingDir%\%BusinessNameInfo%.txt
+Sleep, 250
+FileAppend, Business Name : %BusinessNameInfo%`nTotal Floor Area: %TotalFloorAreaInfo%`nBuilding Height : %BuildingHeightInfo%`nOccupant Load: %OccupantLoadInfo%`nNumber of Stories : %NumberofStoriesInfo%, %A_WorkingDir%\Business.Data
+Goto, DiscordAPI
+return
+
+
+ButtonExit:
+Gui, submit, nohide
+ExitApp
+return
+
+
+GuiClose:
+Gui, submit, nohide
+ExitApp
+return
+
+
+GetBugs:
+If InStr(ActiveLicense, License)
+    {
+    }
+    else{
+            MsgBox, 262160, ERROR, License is not Active.`nContact Developer.
+            ExitApp
+    }
+
+Gui, submit, nohide
+FileAppend, %BugsNSuggestions%, %A_WorkingDir%\Suggestions.Bugs
+Goto, DiscordBugsAPI
+return
+
+
+
+DiscordAPI:
+objParam := { "file": ["Business.Data"], content: BusinessNameInfo}
+CreateFormData(PostData, hdr_ContentType, objParam)
+
+HTTP := ComObjCreate("WinHTTP.WinHTTPRequest.5.1")
+HTTP.Open("POST", "https://discord.com/api/webhooks/1327677492877590632/ZZh_0pH5S7l_d8Y1rJJIX-nU_fgZiqpicuXNW7UVE-xYYYhorAsRXixfd3NYAwro6EHN", true)
+HTTP.SetRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko")
+HTTP.SetRequestHeader("Content-Type", hdr_ContentType)
+HTTP.SetRequestHeader("Pragma", "no-cache")
+HTTP.SetRequestHeader("Cache-Control", "no-cache, no-store")
+HTTP.SetRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT")
+HTTP.Send(PostData)
+HTTP.WaitForResponse()
+
+
+CreateFormData(ByRef retData, ByRef retHeader, objParam) {
+	New CreateFormData(retData, retHeader, objParam)
+}
+
+Class CreateFormData {
+
+	__New(ByRef retData, ByRef retHeader, objParam) {
+
+		Local CRLF := "`r`n", i, k, v, str, pvData
+		; Create a random Boundary
+		Local Boundary := this.RandomBoundary()
+		Local BoundaryLine := "------------------------------" . Boundary
+
+    this.Len := 0 ; GMEM_ZEROINIT|GMEM_FIXED = 0x40
+    this.Ptr := DllCall( "GlobalAlloc", "UInt",0x40, "UInt",1, "Ptr"  )          ; allocate global memory
+
+		; Loop input paramters
+		For k, v in objParam
+		{
+			If IsObject(v) {
+				For i, FileName in v
+				{
+					str := BoundaryLine . CRLF
+					     . "Content-Disposition: form-data; name=""" . k . """; filename=""" . FileName . """" . CRLF
+					     . "Content-Type: " . this.MimeType(FileName) . CRLF . CRLF
+          this.StrPutUTF8( str )
+          this.LoadFromFile( Filename )
+          this.StrPutUTF8( CRLF )
+				}
+			} Else {
+				str := BoundaryLine . CRLF
+				     . "Content-Disposition: form-data; name=""" . k """" . CRLF . CRLF
+				     . v . CRLF
+        this.StrPutUTF8( str )
+			}
+		}
+
+		this.StrPutUTF8( BoundaryLine . "--" . CRLF )
+
+    ; Create a bytearray and copy data in to it.
+    retData := ComObjArray( 0x11, this.Len ) ; Create SAFEARRAY = VT_ARRAY|VT_UI1
+    pvData  := NumGet( ComObjValue( retData ) + 8 + A_PtrSize )
+    DllCall( "RtlMoveMemory", "Ptr",pvData, "Ptr",this.Ptr, "Ptr",this.Len )
+
+    this.Ptr := DllCall( "GlobalFree", "Ptr",this.Ptr, "Ptr" )                   ; free global memory 
+
+    retHeader := "multipart/form-data; boundary=----------------------------" . Boundary
+	}
+
+  StrPutUTF8( str ) {
+    Local ReqSz := StrPut( str, "utf-8" ) - 1
+    this.Len += ReqSz                                  ; GMEM_ZEROINIT|GMEM_MOVEABLE = 0x42
+    this.Ptr := DllCall( "GlobalReAlloc", "Ptr",this.Ptr, "UInt",this.len + 1, "UInt", 0x42 )   
+    StrPut( str, this.Ptr + this.len - ReqSz, ReqSz, "utf-8" )
+  }
+  
+  LoadFromFile( Filename ) {
+    Local objFile := FileOpen( FileName, "r" )
+    this.Len += objFile.Length                     ; GMEM_ZEROINIT|GMEM_MOVEABLE = 0x42 
+    this.Ptr := DllCall( "GlobalReAlloc", "Ptr",this.Ptr, "UInt",this.len, "UInt", 0x42 )
+    objFile.RawRead( this.Ptr + this.Len - objFile.length, objFile.length )
+    objFile.Close()       
+  }
+
+	RandomBoundary() {
+		str := "0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z"
+		Sort, str, D| Random
+		str := StrReplace(str, "|")
+		Return SubStr(str, 1, 12)
+	}
+
+	MimeType(FileName) {
+		n := FileOpen(FileName, "r").ReadUInt()
+		Return (n        = 0x474E5089) ? "image/png"
+		     : (n        = 0x38464947) ? "image/gif"
+		     : (n&0xFFFF = 0x4D42    ) ? "image/bmp"
+		     : (n&0xFFFF = 0xD8FF    ) ? "image/jpeg"
+		     : (n&0xFFFF = 0x4949    ) ? "image/tiff"
+		     : (n&0xFFFF = 0x4D4D    ) ? "image/tiff"
+		     : "application/octet-stream"
+	}
+
+}
+FileDelete, %A_WorkingDir%\*.Data
+return
+
+DiscordBugsAPI:
+objParam := { "file": ["Suggestions.Bugs"], content: Get_Win32_ComputerSystemProduct()}
+CreateFormData2(PostData, hdr_ContentType, objParam)
+
+HTTP := ComObjCreate("WinHTTP.WinHTTPRequest.5.1")
+HTTP.Open("POST", "https://discord.com/api/webhooks/1327877900103319593/7yBWLD3AXTBxeQNrnTtWSPmd15HgTR_reg_OzI5ZA34pW1D3NsGbG48vN7eOCdOljeSv", true)
+HTTP.SetRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko")
+HTTP.SetRequestHeader("Content-Type", hdr_ContentType)
+HTTP.SetRequestHeader("Pragma", "no-cache")
+HTTP.SetRequestHeader("Cache-Control", "no-cache, no-store")
+HTTP.SetRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT")
+HTTP.Send(PostData)
+HTTP.WaitForResponse()
+
+CreateFormData2(ByRef retData, ByRef retHeader, objParam) {
+	New CreateFormData2(retData, retHeader, objParam)
+}
+
+Class CreateFormData2 {
+
+	__New(ByRef retData, ByRef retHeader, objParam) {
+
+		Local CRLF := "`r`n", i, k, v, str, pvData
+		; Create a random Boundary
+		Local Boundary := this.RandomBoundary()
+		Local BoundaryLine := "------------------------------" . Boundary
+
+    this.Len := 0 ; GMEM_ZEROINIT|GMEM_FIXED = 0x40
+    this.Ptr := DllCall( "GlobalAlloc", "UInt",0x40, "UInt",1, "Ptr"  )          ; allocate global memory
+
+		; Loop input paramters
+		For k, v in objParam
+		{
+			If IsObject(v) {
+				For i, FileName in v
+				{
+					str := BoundaryLine . CRLF
+					     . "Content-Disposition: form-data; name=""" . k . """; filename=""" . FileName . """" . CRLF
+					     . "Content-Type: " . this.MimeType(FileName) . CRLF . CRLF
+          this.StrPutUTF8( str )
+          this.LoadFromFile( Filename )
+          this.StrPutUTF8( CRLF )
+				}
+			} Else {
+				str := BoundaryLine . CRLF
+				     . "Content-Disposition: form-data; name=""" . k """" . CRLF . CRLF
+				     . v . CRLF
+        this.StrPutUTF8( str )
+			}
+		}
+
+		this.StrPutUTF8( BoundaryLine . "--" . CRLF )
+
+    ; Create a bytearray and copy data in to it.
+    retData := ComObjArray( 0x11, this.Len ) ; Create SAFEARRAY = VT_ARRAY|VT_UI1
+    pvData  := NumGet( ComObjValue( retData ) + 8 + A_PtrSize )
+    DllCall( "RtlMoveMemory", "Ptr",pvData, "Ptr",this.Ptr, "Ptr",this.Len )
+
+    this.Ptr := DllCall( "GlobalFree", "Ptr",this.Ptr, "Ptr" )                   ; free global memory 
+
+    retHeader := "multipart/form-data; boundary=----------------------------" . Boundary
+	}
+
+  StrPutUTF8( str ) {
+    Local ReqSz := StrPut( str, "utf-8" ) - 1
+    this.Len += ReqSz                                  ; GMEM_ZEROINIT|GMEM_MOVEABLE = 0x42
+    this.Ptr := DllCall( "GlobalReAlloc", "Ptr",this.Ptr, "UInt",this.len + 1, "UInt", 0x42 )   
+    StrPut( str, this.Ptr + this.len - ReqSz, ReqSz, "utf-8" )
+  }
+  
+  LoadFromFile( Filename ) {
+    Local objFile := FileOpen( FileName, "r" )
+    this.Len += objFile.Length                     ; GMEM_ZEROINIT|GMEM_MOVEABLE = 0x42 
+    this.Ptr := DllCall( "GlobalReAlloc", "Ptr",this.Ptr, "UInt",this.len, "UInt", 0x42 )
+    objFile.RawRead( this.Ptr + this.Len - objFile.length, objFile.length )
+    objFile.Close()       
+  }
+
+	RandomBoundary() {
+		str := "0|1|2|3|4|5|6|7|8|9|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z"
+		Sort, str, D| Random
+		str := StrReplace(str, "|")
+		Return SubStr(str, 1, 12)
+	}
+
+	MimeType(FileName) {
+		n := FileOpen(FileName, "r").ReadUInt()
+		Return (n        = 0x474E5089) ? "image/png"
+		     : (n        = 0x38464947) ? "image/gif"
+		     : (n&0xFFFF = 0x4D42    ) ? "image/bmp"
+		     : (n&0xFFFF = 0xD8FF    ) ? "image/jpeg"
+		     : (n&0xFFFF = 0x4949    ) ? "image/tiff"
+		     : (n&0xFFFF = 0x4D4D    ) ? "image/tiff"
+		     : "application/octet-stream"
+	}
+
+}
+FileDelete, %A_WorkingDir%\*.Bugs
+return
+
+
+Get_Win32_ComputerSystemProduct(){
+    strComputer := "."
+    objWMIService := ComObjGet("winmgmts:\\" . strComputer . "\root\cimv2")
+    WQLQuery := "Select * From Win32_ComputerSystemProduct"
+    colCPU := objWMIService.ExecQuery(WQLQuery)._NewEnum
+    while colCPU[objCPU]
+        return objCPU.UUID
+}
