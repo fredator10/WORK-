@@ -3,7 +3,7 @@
 #Include AutoUpdate.ahk
 
 FILE := "https://raw.githubusercontent.com/fredator10/WORK-/refs/heads/main/FSI_Tool"
-mode := 8
+mode := 16
 
 AutoUpdate(FILE, mode)
 
