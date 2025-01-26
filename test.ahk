@@ -1,8 +1,9 @@
-; Define the URL of the updated script
-UpdateURL := "https://raw.githubusercontent.com/fredator10/WORK-/main/test.ahk"
+; Define the URL of the updated script with a timestamp to force refresh
+UpdateURL := "https://raw.githubusercontent.com/fredator10/WORK-/main/test.ahk?" A_TickCount
 
 ; Call the AutoUpdate function with all required parameters
 AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
+
 
 ; Main script code
 MsgBox, v1.
