@@ -13,7 +13,7 @@ If (FileExist(UpdateMarker)) {
 AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 
 ; Main script code
-MsgBox, v11 proof checking
+MsgBox, v12 proof checking
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
