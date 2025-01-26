@@ -1,19 +1,17 @@
 ; Define the URL of the updated script
 UpdateURL := "https://raw.githubusercontent.com/fredator10/WORK-/main/test.ahk"
 
-; Main script code
-
-; Check if the update has already been applied (if marker file exists)
+; Check if the update marker exists to prevent repeated updates
 If !FileExist(A_ScriptDir . "\update_marker.txt") {
     ; Call the AutoUpdate function with all required parameters
     AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 } else {
-    ; Skip the update if it has already been applied
+    ; Skip the update process if marker exists
     MsgBox, Update already applied, skipping.
 }
 
-; Main script logic continues here (without MsgBox for checking)
-MsgBox, v7 proof checking ; This is your main script logic
+; Main script code logic continues here
+MsgBox, v8 proof checking ; This is your main script logic
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
@@ -24,9 +22,8 @@ AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile :=
         ; Create a marker file to indicate that the script was updated
         FileAppend, % A_Now, %A_ScriptDir%\update_marker.txt
         
-        MsgBox, Update completed! ; (Optional: Remove this MsgBox later if not needed)
-        
-        ; Reload the script to apply the update
+        ; Optionally, reload the script to apply the update
+        MsgBox, Update completed! ; This is optional and can be removed if not needed
         Reload
     } else {
         MsgBox, Error downloading the update.
@@ -65,10 +62,4 @@ UrlDownloadToFile(URL, OutputFile) {
     } catch e {
         return false  ; Return false if any error occurs during the process
     }
-}
-
-; Check if the update marker exists before proceeding with any other action
-If FileExist(A_ScriptDir . "\update_marker.txt") {
-    ; Delete marker file to avoid applying updates repeatedly
-    FileDelete, %A_ScriptDir%\update_marker.txt
 }
