@@ -5,19 +5,16 @@ UpdateURL := "https://raw.githubusercontent.com/fredator10/WORK-/main/test.ahk"
 AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 
 ; Main script code
-MsgBox, v4 proof checking
+MsgBox, v5 auto updates  ; Keep this for the initial verification, but can be removed later
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
     iniFile := iniFile ? iniFile : GetNameNoExt(A_ScriptName) . ".ini"
     
-    ; Check if an update is needed - remove the MsgBox here
-    ; MsgBox, Checking for updates at URL: %FILE%
-    
+    ; Perform the update check silently
     if UrlDownloadToFile(FILE, A_ScriptFullPath) {
-        ; MsgBox, Update downloaded successfully! ; Remove this MsgBox
-    } else {
-        ; MsgBox, Error downloading update from %FILE%. ; Remove this MsgBox
+        ; If the update is successful, it will replace the file without any popups
+        Reload  ; Reload the script to apply the update
     }
 }
 
@@ -34,24 +31,23 @@ UrlDownloadToFile(URL, OutputFile) {
         WebRequest := ComObjCreate("WinHttp.WinHttpRequest.5.1")
         WebRequest.Open("GET", URL, false)
         WebRequest.Send()
+        
         ; Check the status of the request
         Status := WebRequest.Status
         StatusText := WebRequest.StatusText  ; Get the status text
         if (Status != 200) {
-            ; MsgBox, Error: HTTP %Status% - %StatusText% ; Remove this MsgBox
-            return false
+            return false  ; Return false if the download fails
         }
+        
         ; Write the response to the output file
         File := FileOpen(OutputFile, "w")
         if !File {
-            ; MsgBox, Unable to open file for writing: %OutputFile% ; Remove this MsgBox
-            return false
+            return false  ; Return false if unable to open file for writing
         }
         File.Write(WebRequest.ResponseText)
         File.Close()
-        return true
+        return true  ; Return true if the file is successfully written
     } catch e {
-        ; MsgBox, Error: %ErrorLevel% ; Remove this MsgBox
-        return false
+        return false  ; Return false if any error occurs during the process
     }
 }
