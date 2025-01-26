@@ -6,7 +6,7 @@ AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 
 
 ; Main script code
-MsgBox, v1.
+MsgBox, v2.
 
 ; --- your actual script's logic below ---
 
