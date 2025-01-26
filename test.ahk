@@ -11,7 +11,7 @@ If !FileExist(A_ScriptDir . "\update_marker.txt") {
 }
 
 ; Main script code logic continues here
-MsgBox, v8 proof checking ; This is your main script logic
+MsgBox, v9 proof checking ; This is your main script logic
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
@@ -22,9 +22,9 @@ AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile :=
         ; Create a marker file to indicate that the script was updated
         FileAppend, % A_Now, %A_ScriptDir%\update_marker.txt
         
-        ; Optionally, reload the script to apply the update
-        MsgBox, Update completed! ; This is optional and can be removed if not needed
-        Reload
+        ; Reload the script only once after the update
+        MsgBox, Update completed successfully! Script will reload.
+        Reload ; This reload should happen only once after the update
     } else {
         MsgBox, Error downloading the update.
     }
