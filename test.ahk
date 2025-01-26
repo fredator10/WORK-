@@ -12,7 +12,7 @@ If !FileExist(A_ScriptDir . "\update_marker.txt") {
 }
 
 ; Main script logic continues here (without MsgBox for checking)
-MsgBox, v4 proof checking  ; You can remove this later if not needed
+MsgBox, v5 proof checking  ; You can remove this later if not needed
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
