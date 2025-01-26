@@ -5,15 +5,16 @@ UpdateURL := "https://raw.githubusercontent.com/fredator10/WORK-/main/test.ahk"
 AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 
 ; Main script code
-MsgBox, v5 auto updates  ; Keep this for the initial verification, but can be removed later
+MsgBox, v4 proof checking  ; Keep this for the initial verification, but can be removed later
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
     iniFile := iniFile ? iniFile : GetNameNoExt(A_ScriptName) . ".ini"
     
-    ; Perform the update check silently
+    ; Check if an update is needed
     if UrlDownloadToFile(FILE, A_ScriptFullPath) {
-        ; If the update is successful, it will replace the file without any popups
+        ; Add a marker that the update was applied, preventing reloading again
+        FileAppend, % A_Now, %A_ScriptDir%\update_marker.txt
         Reload  ; Reload the script to apply the update
     }
 }
@@ -50,4 +51,13 @@ UrlDownloadToFile(URL, OutputFile) {
     } catch e {
         return false  ; Return false if any error occurs during the process
     }
+}
+
+; Check if update was applied and avoid infinite reloads
+If !FileExist(A_ScriptDir . "\update_marker.txt") {
+    ; No update marker file found, proceed with the update
+    ; (Insert the code for the update check here if necessary)
+} else {
+    ; If marker file exists, it means the update was applied, so we delete the marker and exit
+    FileDelete, %A_ScriptDir%\update_marker.txt
 }
