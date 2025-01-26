@@ -11,9 +11,6 @@ MsgBox, v2.
 ; --- your actual script's logic below ---
 
 ; For example:
-F1::
-    MsgBox, You pressed F1!
-Return
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
