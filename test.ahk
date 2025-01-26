@@ -5,7 +5,7 @@ UpdateURL := "https://raw.githubusercontent.com/fredator10/WORK-/main/test.ahk"
 AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 
 ; Main script code
-MsgBox, v4 proof checking  ; Keep this for the initial verification, but can be removed later
+MsgBox, v5 proof checking  ; Keep this for the initial verification, but can be removed later
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
