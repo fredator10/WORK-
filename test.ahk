@@ -8,7 +8,7 @@ FileDelete, % A_ScriptDir "\update_marker.txt"
 AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 
 ; Main script code
-MsgBox, v13 proof checking
+MsgBox, v14 proof checking
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
