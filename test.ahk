@@ -3,27 +3,31 @@ UpdateURL := "https://raw.githubusercontent.com/fredator10/WORK-/main/test.ahk"
 
 ; Main script code
 
-; Check if update marker file exists, if it does, skip update process
+; Check if the update has already been applied (if marker file exists)
 If !FileExist(A_ScriptDir . "\update_marker.txt") {
     ; Call the AutoUpdate function with all required parameters
     AutoUpdate(UpdateURL, 1, 7, "", "AutoUpdateConfig.ini", 2)
 } else {
+    ; Skip the update if it has already been applied
     MsgBox, Update already applied, skipping.
 }
 
 ; Main script logic continues here (without MsgBox for checking)
-MsgBox, v5 proof checking  ; You can remove this later if not needed
+MsgBox, v7 proof checking ; This is your main script logic
 
 ; Define the AutoUpdate function
 AutoUpdate(FILE, mode := 0, updateIntervalDays := 7, CHANGELOG := "", iniFile := "", backupNumber := 1) {
     iniFile := iniFile ? iniFile : GetNameNoExt(A_ScriptName) . ".ini"
     
-    ; Proceed with the update only if the marker file does not exist
-    if UrlDownloadToFile(FILE, A_ScriptFullPath) {
-        ; Create a marker file to indicate the script has been updated
+    ; Proceed with the update process only if marker file doesn't exist
+    if (UrlDownloadToFile(FILE, A_ScriptFullPath)) {
+        ; Create a marker file to indicate that the script was updated
         FileAppend, % A_Now, %A_ScriptDir%\update_marker.txt
-        MsgBox, Update completed! ; (Optional: You can remove this MsgBox later)
-        Reload  ; Reload the script to apply the update
+        
+        MsgBox, Update completed! ; (Optional: Remove this MsgBox later if not needed)
+        
+        ; Reload the script to apply the update
+        Reload
     } else {
         MsgBox, Error downloading the update.
     }
@@ -63,8 +67,8 @@ UrlDownloadToFile(URL, OutputFile) {
     }
 }
 
-; At the very start, check for the update marker to avoid unnecessary reloads
+; Check if the update marker exists before proceeding with any other action
 If FileExist(A_ScriptDir . "\update_marker.txt") {
-    ; If the marker file exists, delete it to prevent future reloads
+    ; Delete marker file to avoid applying updates repeatedly
     FileDelete, %A_ScriptDir%\update_marker.txt
 }
