@@ -26,8 +26,5 @@ if !FileExist(DownloadPath)
     }
 }
 
-; Run the downloaded Exe.exe
-Run, %DownloadPath%
-
 ; Exit the current script
 ExitApp
