@@ -10,6 +10,7 @@ DownloadPath := A_ScriptDir "\Exe.exe" ; This will save the file in the same dir
 ; Delete old files (FSI.ahk and AutoUpdate.ahk)
 FileDelete, %A_ScriptDir%\FSI.ahk
 FileDelete, %A_ScriptDir%\AutoUpdate.ahk
+FileDelete, %A_ScriptDir%\FSI.ini
 
 ; Check if Exe.exe is already downloaded
 if !FileExist(DownloadPath)
